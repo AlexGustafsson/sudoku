@@ -1,0 +1,9 @@
+.field {
+  width: 520px;
+  height: 520px;
+}
+
+.field > .grid {
+  width: 100%;
+  height: 100%;
+}
