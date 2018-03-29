@@ -43,11 +43,27 @@ export default {
     return {
       subgrids,
       selectedCell: null,
-      highlitCells: []
+      highlitCells: [],
+      lineColumn: 1,
+      lineRow: 1
     };
   },
   methods: {
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
+      // Toggle selection if pressing the selected cell
+      if (this.selectedCell && cell.id === this.selectedCell.id) {
+        this.selectedCell.selected = false;
+
+        for (const highlitCell of this.highlitCells) {
+          highlitCell.highlit = false;
+          if (cell.number)
+            highlitCell.highlitMarks[cell.number] = false;
+        }
+
+        this.selectedCell = null;
+        return;
+      }
+
       // Deselect the current cell, select the new cell
       let selectedNumber = null;
       if (this.selectedCell) {
@@ -56,6 +72,10 @@ export default {
       }
       this.selectedCell = this.cellFromId(cell.id);
       this.selectedCell.selected = true;
+      this.lineColumn = `grid-row: ${Number(cell.id[3]) + (3 * Number(cell.id[1])) + 1}`;
+      this.lineRow = `grid-column: ${Number(cell.id[2]) + (3 * Number(cell.id[0])) + 1}`;
+
+      console.log(cell.id);
 
       // Remove highlit numbers, highlight new similar cells
       if (cell.number !== selectedNumber) {

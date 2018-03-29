@@ -7,5 +7,5 @@
 
 .subgrid {
   outline: 1px solid black;
-  grid-gap: 10px;
+  /*grid-gap: 10px;*/
 }

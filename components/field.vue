@@ -6,6 +6,10 @@
           v-bind="cell"></cell>
       </div>
     </div>
+    <div class="overlaygrid">
+      <div v-bind:class="{hide: !selectedCell}" class="horizontal" v-bind:style="lineColumn"></div>
+      <div v-bind:class="{hide: !selectedCell}" class="vertical" v-bind:style="lineRow"></div>
+    </div>
   </div>
 </template>
 
