@@ -1,3 +1,5 @@
+/* global document */
+
 import Cell from '../cell.vue';
 
 export default {
@@ -79,28 +81,53 @@ export default {
 
       // Remove highlit numbers, highlight new similar cells
       if (cell.number !== selectedNumber) {
-        for (const highlitCell of this.highlitCells) {
-          highlitCell.highlit = false;
-          if (selectedNumber)
-            highlitCell.highlitMarks[selectedNumber] = false;
-        }
+        this.clearHighlitCells(selectedNumber);
 
-        if (cell.number === null)
-          return;
+        this.highlightSimilarCells(cell);
+      }
+    },
+    clearHighlitCells: function (selectedNumber) { // eslint-disable-line object-shorthand
+      for (const highlitCell of this.highlitCells) {
+        highlitCell.highlit = false;
+        if (selectedNumber)
+          highlitCell.highlitMarks[selectedNumber] = false;
+      }
+    },
+    highlightSimilarCells: function (cell) { // eslint-disable-line object-shorthand
+      if (cell.number === null)
+        return;
 
-        for (const similarCell of this.cellsFromNumber(cell.number)) {
-          if (similarCell.id !== cell.id) {
-            similarCell.highlit = true;
-            this.highlitCells.push(similarCell);
-          }
+      for (const similarCell of this.cellsFromNumber(cell.number)) {
+        if (similarCell.id !== cell.id) {
+          similarCell.highlit = true;
+          this.highlitCells.push(similarCell);
         }
+      }
 
-        for (const similarCell of this.cellsFromMarks(cell.number)) {
-          if (similarCell.id !== cell.id) {
-            similarCell.highlitMarks[cell.number] = true;
-            this.highlitCells.push(similarCell);
-          }
+      for (const similarCell of this.cellsFromMarks(cell.number)) {
+        if (similarCell.id !== cell.id) {
+          similarCell.highlitMarks[cell.number] = true;
+          this.highlitCells.push(similarCell);
         }
+      }
+    },
+    keyPressed: function (event) { // eslint-disable-line object-shorthand
+      if (!this.selectedCell)
+        return;
+
+      const key = event.key;
+      const allowed = '123456789';
+      if (allowed.includes(key)) {
+        const number = Number(key);
+        if (number !== this.selectedCell.number) {
+          this.clearHighlitCells(this.selectedCell.number);
+          this.selectedCell.number = number;
+          this.highlightSimilarCells(this.selectedCell);
+        }
+      } else if (key === 'Backspace' || key === 'Delete') {
+        this.clearHighlitCells(this.selectedCell.number);
+        this.selectedCell.number = null;
+        this.highlightSimilarCells(this.selectedCell);
       }
     },
     clear: function () { // eslint-disable-line object-shorthand
@@ -137,6 +164,12 @@ export default {
       }
       return cells;
     }
+  },
+  mounted: function () { // eslint-disable-line object-shorthand
+    document.addEventListener('keyup', this.keyPressed, false);
+  },
+  destroyed: function () { // eslint-disable-line object-shorthand
+    document.removeEventListener('keyup', this.keyPressed);
   },
   components: {
     Cell
