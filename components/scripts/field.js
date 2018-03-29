@@ -74,8 +74,7 @@ export default {
       }
       this.selectedCell = this.cellFromId(cell.id);
       this.selectedCell.selected = true;
-      this.lineColumn = `grid-row: ${Number(cell.id[3]) + (3 * Number(cell.id[1])) + 1}`;
-      this.lineRow = `grid-column: ${Number(cell.id[2]) + (3 * Number(cell.id[0])) + 1}`;
+      this.highlightLine(cell);
 
       // Remove highlit numbers, highlight new similar cells
       if (cell.number !== selectedNumber) {
@@ -146,6 +145,7 @@ export default {
           this.selectedCell.selected = false;
           this.selectedCell = this.cellFromCoordinates(x, y);
           this.selectedCell.selected = true;
+          this.highlightLine(this.selectedCell);
           this.highlightSimilarCells(this.selectedCell);
         }
       }
@@ -182,6 +182,10 @@ export default {
         }
       }
       return cells;
+    },
+    highlightLine: function (cell) { // eslint-disable-line object-shorthand
+      this.lineColumn = `grid-row: ${Number(cell.id[3]) + (3 * Number(cell.id[1])) + 1}`;
+      this.lineRow = `grid-column: ${Number(cell.id[2]) + (3 * Number(cell.id[0])) + 1}`;
     },
     cellsFromMarks: function (number) { // eslint-disable-line object-shorthand
       const cells = [];
