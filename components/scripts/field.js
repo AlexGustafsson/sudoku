@@ -77,8 +77,6 @@ export default {
       this.lineColumn = `grid-row: ${Number(cell.id[3]) + (3 * Number(cell.id[1])) + 1}`;
       this.lineRow = `grid-column: ${Number(cell.id[2]) + (3 * Number(cell.id[0])) + 1}`;
 
-      console.log(cell.id);
-
       // Remove highlit numbers, highlight new similar cells
       if (cell.number !== selectedNumber) {
         this.clearHighlitCells(selectedNumber);
@@ -116,8 +114,9 @@ export default {
         return;
 
       const key = event.key;
-      const allowed = '123456789';
-      if (allowed.includes(key)) {
+      const numbers = '123456789';
+
+      if (numbers.includes(key)) {
         const number = Number(key);
         if (number !== this.selectedCell.number) {
           this.clearHighlitCells(this.selectedCell.number);
@@ -128,6 +127,27 @@ export default {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
         this.highlightSimilarCells(this.selectedCell);
+      } else if (key.substring(0, 5) === 'Arrow') {
+        const id = this.selectedCell.id;
+        let x = (Number(id[0]) * 3) + Number(id[2]);
+        let y = (Number(id[1]) * 3) + Number(id[3]);
+
+        if (key === 'ArrowLeft')
+          x = Math.max(x - 1, 0);
+        else if (key === 'ArrowRight')
+          x = Math.min(x + 1, 8);
+        else if (key === 'ArrowUp')
+          y = Math.max(y - 1, 0);
+        else if (key === 'ArrowDown')
+          y = Math.min(y + 1, 8);
+
+        if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
+          this.clearHighlitCells(this.selectedCell.number);
+          this.selectedCell.selected = false;
+          this.selectedCell = this.cellFromCoordinates(x, y);
+          this.selectedCell.selected = true;
+          this.highlightSimilarCells(this.selectedCell);
+        }
       }
     },
     clear: function () { // eslint-disable-line object-shorthand
@@ -143,6 +163,15 @@ export default {
       const subgridIndex = Number(id[0]) + (3 * Number(id[1]));
       const cellIndex = Number(id[2]) + (3 * Number(id[3]));
       return this.subgrids[subgridIndex].cells[cellIndex];
+    },
+    cellFromCoordinates: function (x, y) { // eslint-disable-line object-shorthand
+      const sx = Math.floor(x / 3);
+      const sy = Math.floor(y / 3);
+      const subgrid = sx + (sy * 3);
+      const cx = x % 3;
+      const cy = y % 3;
+
+      return this.subgrids[subgrid].cells[cx + (cy * 3)];
     },
     cellsFromNumber: function (number) { // eslint-disable-line object-shorthand
       const cells = [];
@@ -166,10 +195,10 @@ export default {
     }
   },
   mounted: function () { // eslint-disable-line object-shorthand
-    document.addEventListener('keyup', this.keyPressed, false);
+    document.addEventListener('keydown', this.keyPressed, false);
   },
   destroyed: function () { // eslint-disable-line object-shorthand
-    document.removeEventListener('keyup', this.keyPressed);
+    document.removeEventListener('keydown', this.keyPressed);
   },
   components: {
     Cell
