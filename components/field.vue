@@ -1,8 +1,9 @@
 <template>
   <div class="field">
     <div class="grid">
-      <div class="grid subgrid" v-for="i in 9">
-        <cell v-for="j in 9" :key="j">1</cell>
+      <div class="grid subgrid" v-for="subgrid in subgrids">
+        <cell v-for="cell in subgrid.cells" :key="cell.id" v-on:selected="cellSelected"
+          v-bind="cell"></cell>
       </div>
     </div>
   </div>

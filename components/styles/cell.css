@@ -1,26 +1,27 @@
 .cell {
   position: relative;
+  cursor: pointer;
 }
 
-.cell > input {
+.cell > p {
   outline: none;
   z-index: 10;
   position: absolute;
-  width: 100%;
-  height: 100%;
   padding: 0;
   margin: 0;
-  border: 0;
-  background: none;
-  top: 0;
-  left: 0;
-  text-align: center;
-  vertical-align: middle;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 16px;
+  user-select: none;
 }
 
-.cell > input:focus {
+.cell > p:focus {
   background-color: rgba(0, 255, 0, 0.3);
+}
+
+.cell > p:hover {
+  cursor: pointer;
 }
 
 .cell > .grid {
@@ -28,6 +29,7 @@
   grid-column: 1 / 3;
   width: 100%;
   height: 100%;
+  transition: 0.2s ease-in-out;
 }
 
 .cell > .grid > p {
@@ -41,13 +43,21 @@
 }
 
 .cell > .grid > p:hover {
-  cursor: default;
+  cursor: pointer;
 }
 
 .hide {
-  visibility: hidden;
+  opacity: 0;
 }
 
-.highlit {
+.hints > p.highlit {
   background-color: rgba(0, 0, 255, 0.3);
+}
+
+.cell.highlit {
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+.cell.selected {
+  background-color: rgba(0, 255, 0, 0.3);
 }
