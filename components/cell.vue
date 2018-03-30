@@ -1,9 +1,9 @@
 <template>
-  <div class="cell" v-bind:class="{selected: selected, highlit: highlit}" v-on:click="clicked">
-    <div class="grid hints" v-bind:class="{hide: number}">
+  <div class="cell" v-bind:class="{selected: selected, highlit: highlit, secondary: secondarySelected}" v-on:click="clicked">
+    <div class="grid hints" v-bind:class="{hide: number && !secondarySelected}">
       <p v-for="i in 9" v-bind:class="{hide: !marks[i], highlit: highlitMarks[i]}">{{i}}</p>
     </div>
-    <p>{{number}}</p>
+    <p v-bind:class="{translucent: secondarySelected}">{{number}}</p>
   </div>
 </template>
 

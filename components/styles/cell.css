@@ -61,3 +61,12 @@
 .cell.selected {
   background-color: rgba(0, 255, 0, 0.3);
 }
+
+.cell.selected.secondary {
+  background-color: rgba(150, 150, 0, 0.3);
+}
+
+.cell > p.translucent {
+  opacity: 0.2;
+  z-index: -1;
+}

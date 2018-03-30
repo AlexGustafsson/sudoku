@@ -23,6 +23,10 @@ export default {
       type: Boolean,
       required: true
     },
+    secondarySelected: {
+      type: Boolean,
+      required: true
+    },
     x: {
       type: Number,
       required: false

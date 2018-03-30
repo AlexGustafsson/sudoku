@@ -22,6 +22,7 @@ export default {
               x: cx,
               y: cy,
               selected: false,
+              secondarySelected: false,
               highlit: false,
               marks: {},
               highlitMarks: {},
@@ -52,17 +53,10 @@ export default {
   },
   methods: {
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
-      // Toggle selection if pressing the selected cell
+      // Toggle secondary selection if pressing the selected cell
       if (this.selectedCell && cell.id === this.selectedCell.id) {
-        this.selectedCell.selected = false;
+        this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
 
-        for (const highlitCell of this.highlitCells) {
-          highlitCell.highlit = false;
-          if (cell.number)
-            highlitCell.highlitMarks[cell.number] = false;
-        }
-
-        this.selectedCell = null;
         return;
       }
 
@@ -70,6 +64,7 @@ export default {
       let selectedNumber = null;
       if (this.selectedCell) {
         this.selectedCell.selected = false;
+        this.selectedCell.secondarySelected = false;
         selectedNumber = this.selectedCell.number;
       }
       this.selectedCell = this.cellFromId(cell.id);
@@ -117,7 +112,9 @@ export default {
 
       if (numbers.includes(key)) {
         const number = Number(key);
-        if (number !== this.selectedCell.number) {
+        if (this.selectedCell.secondarySelected) {
+          this.selectedCell.marks[number] = !this.selectedCell.marks[number];
+        } else if (number !== this.selectedCell.number) {
           this.clearHighlitCells(this.selectedCell.number);
           this.selectedCell.number = number;
           this.highlightSimilarCells(this.selectedCell);
@@ -143,6 +140,7 @@ export default {
         if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
           this.clearHighlitCells(this.selectedCell.number);
           this.selectedCell.selected = false;
+          this.selectedCell.secondarySelected = false;
           this.selectedCell = this.cellFromCoordinates(x, y);
           this.selectedCell.selected = true;
           this.highlightLine(this.selectedCell);
