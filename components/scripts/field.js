@@ -119,6 +119,8 @@ export default {
           this.selectedCell.number = number;
           this.highlightSimilarCells(this.selectedCell);
         }
+      } else if (key === ' ') {
+        this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
       } else if (key === 'Backspace' || key === 'Delete') {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
