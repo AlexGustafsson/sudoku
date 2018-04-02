@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="overlaygrid">
-      <div v-bind:class="{hide: !selectedCell}" class="horizontal" v-bind:style="lineColumn"></div>
-      <div v-bind:class="{hide: !selectedCell}" class="vertical" v-bind:style="lineRow"></div>
+      <div v-bind:class="{hide: !selectedCell}" class="horizontal overlay" v-bind:style="lineColumn"></div>
+      <div v-bind:class="{hide: !selectedCell}" class="vertical overlay" v-bind:style="lineRow"></div>
     </div>
   </div>
 </template>
@@ -16,3 +16,4 @@
 <script src="./scripts/field.js"></script>
 <style src="./styles/field.css"></style>
 <style src="./styles/grid.css"></style>
+<style src="./styles/theme.css"></style>

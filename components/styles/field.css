@@ -24,14 +24,8 @@
 
 .overlaygrid > .horizontal {
   grid-column: 1 / 10;
-  background-color: rgba(255, 0, 0, 0.1);
 }
 
 .overlaygrid > .vertical {
   grid-row: 1 / 10;
-  background-color: rgba(255, 0, 0, 0.1);
-}
-
-.hide {
-  opacity: 0;
 }

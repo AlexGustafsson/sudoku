@@ -55,28 +55,3 @@
 .cell > .grid > p:hover {
   cursor: pointer;
 }
-
-.hide {
-  opacity: 0;
-}
-
-.hints > div.highlit {
-  background-color: rgba(0, 0, 255, 0.3);
-}
-
-.cell.highlit {
-  background-color: rgba(0, 0, 255, 0.3);
-}
-
-.cell.selected {
-  background-color: rgba(0, 255, 0, 0.3);
-}
-
-.cell.selected.secondary {
-  background-color: rgba(150, 150, 0, 0.3);
-}
-
-.cell > p.translucent {
-  opacity: 0.2;
-  z-index: -1;
-}

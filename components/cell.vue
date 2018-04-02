@@ -12,3 +12,4 @@
 <script src="./scripts/cell.js"></script>
 <style src="./styles/cell.css"></style>
 <style src="./styles/grid.css"></style>
+<style src="./styles/theme.css"></style>

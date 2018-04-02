@@ -1,0 +1,39 @@
+/* NOTE:
+  No style may collapse an element!
+*/
+
+/* Visually hide an element such as non-active cell hints */
+.hide {
+  opacity: 0;
+}
+
+/* Selection markers (vertical and horizontal) */
+.overlay {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+/* A cell's number when the cell is secondary selected */
+.translucent {
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* A hinted number which is the same as the selected cell's number */
+.hints > .highlit {
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+/* A cell which number is the same as the selected cell's number */
+.cell.highlit {
+  background-color: rgba(0, 0, 255, 0.3);
+}
+
+/* A selected cell */
+.selected {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+/* A secondary selected cell */
+.secondary {
+  background-color: rgba(150, 150, 0, 0.3);
+}
