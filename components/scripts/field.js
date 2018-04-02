@@ -131,13 +131,13 @@ export default {
         let y = (Number(id[1]) * 3) + Number(id[3]);
 
         if (key === 'ArrowLeft')
-          x = Math.max(x - 1, 0);
+          x = x - 1 < 0 ? (x - 1 + 9) % 9 : (x - 1) % 9;
         else if (key === 'ArrowRight')
-          x = Math.min(x + 1, 8);
+          x = (x + 1) % 9;
         else if (key === 'ArrowUp')
-          y = Math.max(y - 1, 0);
+          y = y - 1 < 0 ? (y - 1 + 9) % 9 : (y - 1) % 9;
         else if (key === 'ArrowDown')
-          y = Math.min(y + 1, 8);
+          y = (y + 1) % 9;
 
         if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
           this.clearHighlitCells(this.selectedCell.number);
