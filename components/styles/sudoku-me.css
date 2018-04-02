@@ -1,0 +1,114 @@
+/* NOTE:
+  No style may collapse an element!
+*/
+
+/* Visually hide an element such as non-active cell hints */
+.hide {
+  opacity: 0;
+}
+
+/* Selection markers (vertical and horizontal) */
+.overlay {
+
+}
+
+/* A cell's number when the cell is secondary selected */
+.translucent {
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* A hinted number */
+.hint {
+
+}
+
+/* A subgrid */
+.subgrid {
+  border: 1px solid #E2E2E2;
+}
+
+/* Selective borders, top row */
+div:nth-of-type(1).subgrid {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+div:nth-of-type(2).subgrid {
+  border-top-color: transparent;
+}
+
+div:nth-of-type(3).subgrid {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+/* Selective borders, middle row */
+div:nth-of-type(4).subgrid {
+  border-left-color: transparent;
+}
+
+div:nth-of-type(6).subgrid {
+  border-right-color: transparent;
+}
+
+/* Selective borders, third row */
+div:nth-of-type(7).subgrid {
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+div:nth-of-type(8).subgrid {
+  border-bottom-color: transparent;
+}
+
+div:nth-of-type(9).subgrid {
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* A hinted number */
+.hintLabel {
+  font-size: 10px;
+}
+
+/* A cell's number */
+.cell > p {
+  font-size: 24px;
+}
+
+/* A cell which intersect the selected cell vertically or horizontally */
+.crossedCell {
+  background-color: #EDECEC!important;
+}
+
+/* A cell */
+.cell {
+  border-radius: 5px;
+  background-color: #F6F6F6;
+  margin: 5px;
+}
+
+/* A hinted number which is the same as the selected cell's number */
+.hints > .highlit {
+
+}
+
+:not(.hasNumber).hasHighlitMark {
+  box-shadow: 0 0 10px #62ECD2, inset 0 0 10px #62ECD2, inset 0 0 0 3px #62ECD2;
+}
+
+/* A cell which number is the same as the selected cell's number */
+.cell.highlit {
+  box-shadow: 0 0 10px #62ECD2, inset 0 0 10px #62ECD2, inset 0 0 0 3px #62ECD2;
+}
+
+/* A selected cell */
+.selected {
+  box-shadow: 0 0 10px #FD00AE, inset 0 0 10px #FD00AE, 0 0 0 3px #FD00AE;
+}
+
+/* A secondary selected cell */
+.secondary {
+  background-color: rgba(253, 0, 164, 0.3)!important;
+}

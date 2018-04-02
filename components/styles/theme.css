@@ -18,6 +18,41 @@
   z-index: -1;
 }
 
+/* A hinted number cell*/
+.hint {
+
+}
+
+/* A hinted number */
+.hintLabel {
+  font-size: 8px;
+}
+
+/* A subgrid */
+.subgrid {
+  outline: 1px solid black;
+}
+
+/* A cell */
+.cell {
+
+}
+
+/* A cell's number */
+.cell > p {
+  font-size: 16px;
+}
+
+/* A cell that has a number */
+.hasNumber {
+
+}
+
+/* A cell that has hinted numbers equal to the selected number */
+.hasHighlitMark {
+
+}
+
 /* A hinted number which is the same as the selected cell's number */
 .hints > .highlit {
   background-color: rgba(0, 0, 255, 0.3);

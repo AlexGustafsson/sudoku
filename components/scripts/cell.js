@@ -42,6 +42,14 @@ export default {
     highlit: {
       type: Boolean,
       required: true
+    },
+    hasHighlitMark: {
+      type: Boolean,
+      required: true
+    },
+    crossed: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {

@@ -26,6 +26,8 @@ export default {
               highlit: false,
               marks: {},
               highlitMarks: {},
+              hasHighlitMark: false,
+              crossed: false,
               id: `${sx}${sy}${cx}${cy}`
             };
 
@@ -34,6 +36,8 @@ export default {
               cell.highlitMarks[i] = false;
             for (let i = 1; i <= 9; i++)
               cell.marks[i] = Math.random() > 0.6;
+
+            cell.highlitMark = false;
 
             subgrid.cells.push(cell);
           }
@@ -76,11 +80,14 @@ export default {
         this.clearHighlitCells(selectedNumber);
 
         this.highlightSimilarCells(cell);
+        this.highlightCrossedCells(cell);
       }
     },
     clearHighlitCells: function (selectedNumber) { // eslint-disable-line object-shorthand
       for (const highlitCell of this.highlitCells) {
         highlitCell.highlit = false;
+        highlitCell.hasHighlitMark = false;
+        highlitCell.crossed = false;
         if (selectedNumber)
           highlitCell.highlitMarks[selectedNumber] = false;
       }
@@ -99,9 +106,22 @@ export default {
       for (const similarCell of this.cellsFromMarks(cell.number)) {
         if (similarCell.id !== cell.id) {
           similarCell.highlitMarks[cell.number] = true;
+          similarCell.hasHighlitMark = true;
           this.highlitCells.push(similarCell);
         }
       }
+    },
+    highlightCrossedCells: function (cell) { // eslint-disable-line object-shorthand
+      const id = cell.id;
+      const x = (Number(id[0]) * 3) + Number(id[2]);
+      const y = (Number(id[1]) * 3) + Number(id[3]);
+
+      // Horizontal
+      for (let i = 0; i < 9; i++)
+        this.cellFromCoordinates(i, y).crossed = true;
+      // Vertical
+      for (let i = 0; i < 9; i++)
+        this.cellFromCoordinates(x, i).crossed = true;
     },
     keyPressed: function (event) { // eslint-disable-line object-shorthand
       if (!this.selectedCell)
@@ -118,6 +138,7 @@ export default {
           this.clearHighlitCells(this.selectedCell.number);
           this.selectedCell.number = number;
           this.highlightSimilarCells(this.selectedCell);
+          this.highlightCrossedCells(this.selectedCell);
         }
       } else if (key === ' ') {
         this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
@@ -125,6 +146,7 @@ export default {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
         this.highlightSimilarCells(this.selectedCell);
+        this.highlightCrossedCells(this.selectedCell);
       } else if (key.substring(0, 5) === 'Arrow') {
         const id = this.selectedCell.id;
         let x = (Number(id[0]) * 3) + Number(id[2]);
@@ -147,6 +169,7 @@ export default {
           this.selectedCell.selected = true;
           this.highlightLine(this.selectedCell);
           this.highlightSimilarCells(this.selectedCell);
+          this.highlightCrossedCells(this.selectedCell);
         }
       }
     },

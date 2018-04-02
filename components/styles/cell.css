@@ -12,7 +12,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 16px;
   user-select: none;
 }
 
@@ -42,8 +41,6 @@
 
 .cell > .grid > div > p {
   position: absolute;
-  font-size: 8px;
-  color: grey;
   text-align: center;
   user-select: none;
   margin: 0;
