@@ -30,16 +30,26 @@
   width: 100%;
   height: 100%;
   transition: 0.2s ease-in-out;
+  justify-items: center;
 }
 
-.cell > .grid > p {
+.cell > .grid > div {
+  position: relative;
+  padding-bottom: 100%;
+  height: 0;
+  width: 100%;
+}
+
+.cell > .grid > div > p {
+  position: absolute;
   font-size: 8px;
   color: grey;
-  padding: 0;
-  margin: 0;
   text-align: center;
-  align-self: center;
   user-select: none;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .cell > .grid > p:hover {
@@ -50,7 +60,7 @@
   opacity: 0;
 }
 
-.hints > p.highlit {
+.hints > div.highlit {
   background-color: rgba(0, 0, 255, 0.3);
 }
 
