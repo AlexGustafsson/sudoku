@@ -142,7 +142,7 @@ export default {
         }
       } else if (key === ' ') {
         this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
-      } else if (key === 'Backspace' || key === 'Delete') {
+      } else if (!this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
         this.highlightSimilarCells(this.selectedCell);
