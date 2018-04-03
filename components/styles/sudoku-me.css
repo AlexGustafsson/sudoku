@@ -2,6 +2,10 @@
   No style may collapse an element!
 */
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 /* Visually hide an element such as non-active cell hints */
 .hide {
   opacity: 0;
