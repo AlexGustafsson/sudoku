@@ -62,7 +62,8 @@ export default {
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
       // Toggle secondary selection if pressing the selected cell
       if (this.selectedCell && cell.id === this.selectedCell.id) {
-        this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
+        if (!this.selectedCell.locked)
+          this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
 
         return;
       }
