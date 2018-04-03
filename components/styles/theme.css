@@ -1,5 +1,5 @@
 /* NOTE:
-  No style may collapse an element!
+  No style may collapse an element unless explicitly stated!
 */
 
 /* Visually hide an element such as non-active cell hints */
@@ -76,4 +76,16 @@
 /* A secondary selected cell */
 .secondary {
   background-color: rgba(150, 150, 0, 0.3);
+}
+
+/* The keyboard for the field. May be collapsed */
+.keyboard {
+  grid-gap: 5px;
+}
+
+/* A keyboard button */
+.keyboardButton {
+  padding: 5px;
+  margin: 5px;
+  text-align:center;
 }

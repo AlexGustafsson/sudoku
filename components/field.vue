@@ -10,10 +10,11 @@
       <div v-bind:class="{hide: !selectedCell}" class="horizontal overlay" v-bind:style="lineColumn"></div>
       <div v-bind:class="{hide: !selectedCell}" class="vertical overlay" v-bind:style="lineRow"></div>
     </div>
+    <keyboard></keyboard>
   </div>
 </template>
 
 <script src="./scripts/field.js"></script>
 <style src="./styles/field.css"></style>
 <style src="./styles/grid.css"></style>
-<style src="./styles/theme.css"></style>
+<style src="./styles/sudoku-me.css"></style>

@@ -1,6 +1,7 @@
 /* global document */
 
 import Cell from '../cell.vue';
+import Keyboard from '../keyboard.vue';
 
 export default {
   name: 'field',
@@ -138,11 +139,16 @@ export default {
         const number = Number(key);
         if (this.selectedCell.secondarySelected) {
           this.selectedCell.marks[number] = !this.selectedCell.marks[number];
-        } else if (number !== this.selectedCell.number) {
-          this.clearHighlitCells(this.selectedCell.number);
-          this.selectedCell.number = number;
-          this.highlightSimilarCells(this.selectedCell);
-          this.highlightCrossedCells(this.selectedCell);
+        } else {
+          if (number === this.selectedCell.number) {
+            this.clearHighlitCells(this.selectedCell.number);
+            this.selectedCell.number = null;
+          } else {
+            this.clearHighlitCells(this.selectedCell.number);
+            this.selectedCell.number = number;
+            this.highlightSimilarCells(this.selectedCell);
+            this.highlightCrossedCells(this.selectedCell);
+          }
         }
       } else if (!this.selectedCell.locked && key === ' ') {
         this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
@@ -232,6 +238,7 @@ export default {
     document.removeEventListener('keydown', this.keyPressed);
   },
   components: {
-    Cell
+    Cell,
+    Keyboard
   }
 };
