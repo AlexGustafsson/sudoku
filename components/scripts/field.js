@@ -28,6 +28,7 @@ export default {
               highlitMarks: {},
               hasHighlitMark: false,
               crossed: false,
+              locked: false,
               id: `${sx}${sy}${cx}${cy}`
             };
 
@@ -36,6 +37,8 @@ export default {
               cell.highlitMarks[i] = false;
             for (let i = 1; i <= 9; i++)
               cell.marks[i] = Math.random() > 0.6;
+            if (cell.number && Math.random() > 0.7)
+              cell.locked = true;
 
             cell.highlitMark = false;
 
@@ -130,7 +133,7 @@ export default {
       const key = event.key;
       const numbers = '123456789';
 
-      if (numbers.includes(key)) {
+      if (!this.selectedCell.locked && numbers.includes(key)) {
         const number = Number(key);
         if (this.selectedCell.secondarySelected) {
           this.selectedCell.marks[number] = !this.selectedCell.marks[number];
@@ -140,9 +143,9 @@ export default {
           this.highlightSimilarCells(this.selectedCell);
           this.highlightCrossedCells(this.selectedCell);
         }
-      } else if (key === ' ') {
+      } else if (!this.selectedCell.locked && key === ' ') {
         this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
-      } else if (!this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
+      } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
         this.highlightSimilarCells(this.selectedCell);

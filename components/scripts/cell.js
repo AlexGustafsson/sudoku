@@ -50,6 +50,10 @@ export default {
     crossed: {
       type: Boolean,
       required: true
+    },
+    locked: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {

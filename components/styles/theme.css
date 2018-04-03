@@ -38,6 +38,11 @@
 
 }
 
+/* A locked cell (usually a cell which is correct from start) */
+.locked {
+  background-color: grey;
+}
+
 /* A cell's number */
 .cell > p {
   font-size: 16px;
