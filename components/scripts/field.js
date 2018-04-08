@@ -6,7 +6,7 @@ import Keyboard from '../keyboard.vue';
 const Sudoku = require('../../lib/sudoku');
 
 const sudoku = new Sudoku();
-sudoku.generate(0.1);
+sudoku.generate(0.5);
 
 export default {
   name: 'field',
@@ -50,6 +50,7 @@ export default {
 
       for (let i = 1; i <= 9; i++)
         cell.highlitMarks[i] = false;
+
       for (let i = 1; i <= 9; i++)
         cell.marks[i] = false;
 

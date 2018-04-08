@@ -114,3 +114,10 @@
   margin: 5px;
   text-align:center;
 }
+
+/* iPhone screen */
+@media (max-width:375px) {
+  .keyboard {
+    grid-gap: 0!important;
+  }
+}

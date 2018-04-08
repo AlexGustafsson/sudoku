@@ -129,3 +129,18 @@ div:nth-of-type(9).subgrid {
   text-align:center;
   font-size: 24px;
 }
+
+/* iPhone screen */
+@media (max-width:375px) {
+  .keyboard {
+    grid-gap: 0!important;
+  }
+
+  .keyboardButton {
+    font-size: 18px;
+  }
+
+  .cell > p {
+    font-size: 18px;
+  }
+}

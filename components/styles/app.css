@@ -4,4 +4,12 @@ h1 {
 
 .field {
   margin: 0 auto;
+  max-width: min(90vw, 90vh);
+  max-height: min(90vw, 90vh);
+  min-width: 320px;
+  min-height: 320px;
+}
+
+* {
+  -webkit-tap-highlight-color:rgba(0,0,0,0)
 }
