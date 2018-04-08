@@ -3,52 +3,60 @@
 import Cell from '../cell.vue';
 import Keyboard from '../keyboard.vue';
 
+const Sudoku = require('../../lib/sudoku');
+
+const sudoku = new Sudoku();
+sudoku.generate();
+
 export default {
   name: 'field',
   // Vue expects to inject 'this' for instatiation, arrow functions would break that
   data: function () { // eslint-disable-line object-shorthand
-    const subgrids = [];
-    for (let sy = 0; sy < 3; sy++) {
-      for (let sx = 0; sx < 3; sx++) {
-        const subgrid = {
-          cells: [],
-          x: sx,
-          y: sy
-        };
+    const subgrids = new Array(9).fill(null).map(() => {
+      return new Array(9).fill(null);
+    });
 
-        for (let cy = 0; cy < 3; cy++) {
-          for (let cx = 0; cx < 3; cx++) {
-            const cell = {
-              number: null,
-              x: cx,
-              y: cy,
-              selected: false,
-              secondarySelected: false,
-              highlit: false,
-              marks: {},
-              highlitMarks: {},
-              hasHighlitMark: false,
-              crossed: false,
-              locked: false,
-              id: `${sx}${sy}${cx}${cy}`
-            };
+    for (let index = 0; index < 81; index++) {
+      const y = Math.floor(index / 9);
+      const x = index - (9 * y);
 
-            cell.number = Math.random() > 0.3 ? Math.floor(Math.random() * Math.floor(9)) + 1 : null;
-            for (let i = 1; i <= 9; i++)
-              cell.highlitMarks[i] = false;
-            for (let i = 1; i <= 9; i++)
-              cell.marks[i] = Math.random() > 0.6;
-            if (cell.number && Math.random() > 0.7)
-              cell.locked = true;
+      const sx = Math.floor(x / 3);
+      const sy = Math.floor(y / 3);
+      const subgrid = sx + (sy * 3);
+      const cx = x % 3;
+      const cy = y % 3;
 
-            cell.highlitMark = false;
+      const cell = {
+        number: null,
+        x: cx,
+        y: cy,
+        selected: false,
+        secondarySelected: false,
+        highlit: false,
+        marks: {},
+        highlitMarks: {},
+        hasHighlitMark: false,
+        crossed: false,
+        locked: false,
+        id: `${sx}${sy}${cx}${cy}`,
+        correct: false,
+        legal: true
+      };
 
-            subgrid.cells.push(cell);
-          }
-        }
-
-        subgrids.push(subgrid);
+      for (let i = 1; i <= 9; i++)
+        cell.highlitMarks[i] = false;
+      for (let i = 1; i <= 9; i++)
+        cell.marks[i] = false;
+      if (Math.random() > 0.1) {
+        cell.number = sudoku.getCorrectNumber(x, y);
+        cell.locked = true;
+        cell.correct = true;
+        cell.legal = true;
       }
+
+      cell.highlitMark = false;
+
+      subgrids[subgrid][cx + (3 * cy)] = cell;
     }
 
     return {
@@ -143,9 +151,17 @@ export default {
           if (number === this.selectedCell.number) {
             this.clearHighlitCells(this.selectedCell.number);
             this.selectedCell.number = null;
+            this.selectedCell.legal = true;
+            this.selectedCell.correct = false;
           } else {
+            const id = this.selectedCell.id;
+            let x = (Number(id[0]) * 3) + Number(id[2]);
+            let y = (Number(id[1]) * 3) + Number(id[3]);
             this.clearHighlitCells(this.selectedCell.number);
             this.selectedCell.number = number;
+            const result = sudoku.setNumber(x, y, number);
+            this.selectedCell.correct = result.correct;
+            this.selectedCell.legal = result.legal;
             this.highlightSimilarCells(this.selectedCell);
             this.highlightCrossedCells(this.selectedCell);
           }
@@ -185,7 +201,7 @@ export default {
     },
     clear: function () { // eslint-disable-line object-shorthand
       for (const subgrid of this.subgrids) {
-        for (const cell of subgrid.cells) {
+        for (const cell of subgrid) {
           cell.number = null;
           cell.selected = false;
           cell.marked.fill(false);
@@ -195,7 +211,7 @@ export default {
     cellFromId: function (id) { // eslint-disable-line object-shorthand
       const subgridIndex = Number(id[0]) + (3 * Number(id[1]));
       const cellIndex = Number(id[2]) + (3 * Number(id[3]));
-      return this.subgrids[subgridIndex].cells[cellIndex];
+      return this.subgrids[subgridIndex][cellIndex];
     },
     cellFromCoordinates: function (x, y) { // eslint-disable-line object-shorthand
       const sx = Math.floor(x / 3);
@@ -204,12 +220,12 @@ export default {
       const cx = x % 3;
       const cy = y % 3;
 
-      return this.subgrids[subgrid].cells[cx + (cy * 3)];
+      return this.subgrids[subgrid][cx + (cy * 3)];
     },
     cellsFromNumber: function (number) { // eslint-disable-line object-shorthand
       const cells = [];
       for (const subgrid of this.subgrids) {
-        for (const cell of subgrid.cells) {
+        for (const cell of subgrid) {
           if (cell.number === number)
             cells.push(cell);
         }
@@ -223,7 +239,7 @@ export default {
     cellsFromMarks: function (number) { // eslint-disable-line object-shorthand
       const cells = [];
       for (const subgrid of this.subgrids) {
-        for (const cell of subgrid.cells) {
+        for (const cell of subgrid) {
           if (cell.marks[number])
             cells.push(cell);
         }

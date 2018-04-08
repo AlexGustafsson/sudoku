@@ -70,7 +70,7 @@
 
 /* A selected cell */
 .selected {
-  background-color: rgba(0, 255, 0, 0.3);
+  background-color: rgba(0, 255, 0, 0.3)!important;
 }
 
 /* A secondary selected cell */
@@ -81,6 +81,31 @@
 /* The keyboard for the field. May be collapsed */
 .keyboard {
   grid-gap: 5px;
+}
+
+/* A cell with a correctly entered number */
+.correct {
+  background-color: rgba(0, 255, 0, 0.6);
+}
+
+/* A selected cell which is also correct */
+.selected.correct {
+  outline: 5px solid green;
+}
+
+/* A selected cell which is not legal */
+.selected:not(.legal) {
+  outline: 5px solid red;
+}
+
+/* A cell with a legally entered number */
+.legal {
+  box-shadow: inset 0 0 2px green;
+}
+
+/* An unlegal cell */
+.class:not(.legal) {
+  box-shadow: inset 0 0 2px red!important;
 }
 
 /* A keyboard button */

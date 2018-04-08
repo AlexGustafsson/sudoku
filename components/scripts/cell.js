@@ -54,6 +54,14 @@ export default {
     locked: {
       type: Boolean,
       required: true
+    },
+    correct: {
+      type: Boolean,
+      required: true
+    },
+    legal: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {
