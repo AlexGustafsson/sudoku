@@ -4,7 +4,7 @@
   "description": "A Sudoku platform for help and solutions",
   "main": "index.js",
   "scripts": {
-    "test": "xo && ava -v test/*.js && poi",
+    "test": "xo && ava -v test/*.js",
     "build": "poi build",
     "start": "poi"
   },
