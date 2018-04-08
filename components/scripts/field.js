@@ -88,7 +88,7 @@ export default {
       this.highlightLine(cell);
 
       // Remove highlit numbers, highlight new similar cells
-      if (cell.number !== selectedNumber) {
+      if (cell.number === null || cell.number !== selectedNumber) {
         this.clearHighlitCells(selectedNumber);
 
         this.highlightSimilarCells(cell);
@@ -129,11 +129,18 @@ export default {
       const y = (Number(id[1]) * 3) + Number(id[3]);
 
       // Horizontal
-      for (let i = 0; i < 9; i++)
-        this.cellFromCoordinates(i, y).crossed = true;
+      for (let i = 0; i < 9; i++) {
+        const cell = this.cellFromCoordinates(i, y);
+        cell.crossed = true;
+        this.highlitCells.push(cell);
+      }
+
       // Vertical
-      for (let i = 0; i < 9; i++)
-        this.cellFromCoordinates(x, i).crossed = true;
+      for (let i = 0; i < 9; i++) {
+        const cell = this.cellFromCoordinates(x, i);
+        cell.crossed = true;
+        this.highlitCells.push(cell);
+      }
     },
     keyPressed: function (event) { // eslint-disable-line object-shorthand
       if (!this.selectedCell)
