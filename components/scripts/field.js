@@ -6,7 +6,7 @@ import Keyboard from '../keyboard.vue';
 const Sudoku = require('../../lib/sudoku');
 
 const sudoku = new Sudoku();
-sudoku.generate();
+sudoku.generate(0.1);
 
 export default {
   name: 'field',
@@ -26,8 +26,13 @@ export default {
       const cx = x % 3;
       const cy = y % 3;
 
+      const {
+        number,
+        correct
+      } = sudoku.getCell(x, y);
+
       const cell = {
-        number: null,
+        number,
         x: cx,
         y: cy,
         selected: false,
@@ -37,9 +42,9 @@ export default {
         highlitMarks: {},
         hasHighlitMark: false,
         crossed: false,
-        locked: false,
+        locked: correct,
         id: `${sx}${sy}${cx}${cy}`,
-        correct: false,
+        correct,
         legal: true
       };
 
@@ -47,12 +52,6 @@ export default {
         cell.highlitMarks[i] = false;
       for (let i = 1; i <= 9; i++)
         cell.marks[i] = false;
-      if (Math.random() > 0.1) {
-        cell.number = sudoku.getCorrectNumber(x, y);
-        cell.locked = true;
-        cell.correct = true;
-        cell.legal = true;
-      }
 
       cell.highlitMark = false;
 
@@ -171,6 +170,8 @@ export default {
       } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
         this.clearHighlitCells(this.selectedCell.number);
         this.selectedCell.number = null;
+        this.selectedCell.correct = false;
+        this.selectedCell.legal = true;
         this.highlightSimilarCells(this.selectedCell);
         this.highlightCrossedCells(this.selectedCell);
       } else if (key.substring(0, 5) === 'Arrow') {
