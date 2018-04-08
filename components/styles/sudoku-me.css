@@ -82,7 +82,7 @@ div:nth-of-type(9).subgrid {
 }
 
 /* A cell which intersect the selected cell vertically or horizontally */
-.crossedCell {
+.crossed {
   background-color: #EDECEC!important;
 }
 
