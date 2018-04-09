@@ -49,14 +49,14 @@ The algorithm to generate a complete grid.
   <img alt="Terminology" src="https://github.com/AlexGustafsson/sudoku/raw/master/assets/terminology.png">
 <p>
 
-1. Let the __grid__ consist of __subgrids__ of __cells__. Each __subgrid__ contains 9 __cells__. Each __cell__ has a coordinate __{x, y}__ (such as __{0 ≤ x ≤ 9, 0 ≤ y ≤ 9}__).
-2. For each __cell__ in the __grid__.
-  1. Let __neighbors__ be all __cells__ that either intersect the horizontal crossing line (__{0 ≤ x ≤ 8, y}__), the vertical crossing line (__{x, 0 ≤ y ≤ 8}__) or are part of the same subgrid.
-  2. Let possible numbers be numbers that have not yet been tried for the __cell__ and are not included in the __neighbors__.
-  3. If there are possible numbers:
+* Let the __grid__ consist of __subgrids__ of __cells__. Each __subgrid__ contains 9 __cells__. Each __cell__ has a coordinate __{x, y}__ (such as __{0 ≤ x ≤ 9, 0 ≤ y ≤ 9}__).
+* For each __cell__ in the __grid__.
+  * Let __neighbors__ be all __cells__ that either intersect the horizontal crossing line (__{0 ≤ x ≤ 8, y}__), the vertical crossing line (__{x, 0 ≤ y ≤ 8}__) or are part of the same subgrid.
+  * Let possible numbers be numbers that have not yet been tried for the __cell__ and are not included in the __neighbors__.
+  * If there are possible numbers:
     * Pick a random possible number and assign it to the __cell__. Mark the number as tested for the __cell__.
     * Move to the next __cell__.
-  4. If there are no possible __neighbors__.
+  * If there are no possible __neighbors__.
     * Go back to the previous __cell__.
     * Remove all tried numbers for any future __cells__.
     * Go to step 2.1 again.
