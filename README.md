@@ -64,6 +64,15 @@ The algorithm to generate a complete grid.
 # Technology
 <a name="technology"></a>
 
+### Poi
+> Poi is a zero-config bundler built on the top of webpack. By using the buzz word zero-config, it does not mean that there's no config, instead we pre-configurared many things for you. To prevent Poi from becoming too bloated to use, we also introduced some kind of plugin system to make extra features opt-in.
+
+Visit Poi [here](https://github.com/egoist/poi).
+
+### Vue
+> Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
+
+Visit Vue [here](https://github.com/vuejs/vue).
 
 # Disclaimer
 <a name="disclaimer"></a>
