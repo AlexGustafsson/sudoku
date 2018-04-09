@@ -34,9 +34,9 @@ npm start
 # Features
 <a name="features"></a>
 
-![Demo](https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo.jpg)
+![Demo](https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo.png)
 
-![Demo](https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo2.jpg)
+![Demo](https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo2.png)
 
 # Algorithms
 <a name="algorithms"></a>
