@@ -59,8 +59,6 @@ export default {
       subgrids[subgrid][cx + (3 * cy)] = cell;
     }
 
-    subgrids[0][0].locked = false;
-
     return {
       subgrids,
       selectedCell: null,
