@@ -6,7 +6,7 @@ import Keyboard from '../keyboard.vue';
 const Sudoku = require('../../lib/sudoku');
 
 const sudoku = new Sudoku();
-sudoku.generate(0.5);
+sudoku.generate(0);
 
 export default {
   name: 'field',
@@ -58,6 +58,8 @@ export default {
 
       subgrids[subgrid][cx + (3 * cy)] = cell;
     }
+
+    subgrids[0][0].locked = false;
 
     return {
       subgrids,

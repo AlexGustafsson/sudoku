@@ -130,6 +130,11 @@ div:nth-of-type(9).subgrid {
   font-size: 24px;
 }
 
+/* A completed field's cells */
+.completed > .grid > .grid > .cell {
+  cursor: default;
+}
+
 /* iPhone screen */
 @media (max-width:375px) {
   .keyboard {
