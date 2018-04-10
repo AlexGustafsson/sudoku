@@ -1,6 +1,6 @@
 Sudoku
 ======
-A sudoku implementation using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue. [Watch it live](https://dist-fpzziqkdyj.now.sh).
+A sudoku implementation using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue. [Check it out live](https://dist-pvqscjqypc.now.sh).
 
 <p align="center">
   <img alt="Demo" src="https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo.gif">
@@ -33,6 +33,8 @@ npm start
 
 # Features
 <a name="features"></a>
+
+_Note: these images are somewhat outdated and will be updated shortly. Features will also be mentioned more concretely._
 
 ![Demo](https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo.png)
 
