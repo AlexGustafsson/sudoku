@@ -143,6 +143,61 @@ export default {
         this.highlitCells.push(cell);
       }
     },
+    setNumber: function (number) { // eslint-disable-line object-shorthand
+      if (!this.selectedCell)
+        return;
+
+      const id = this.selectedCell.id;
+      const x = (Number(id[0]) * 3) + Number(id[2]);
+      const y = (Number(id[1]) * 3) + Number(id[3]);
+
+      this.selectedCell.number = number;
+      const result = sudoku.setNumber(x, y, number);
+      this.selectedCell.correct = result.correct;
+      this.selectedCell.legal = result.legal;
+
+      this.updateSelectionHighlight();
+    },
+    toggleHint: function (number) { // eslint-disable-line object-shorthand
+      this.selectedCell.marks[number] = !this.selectedCell.marks[number];
+    },
+    clearNumber: function () { // eslint-disable-line object-shorthand
+      this.selectedCell.number = null;
+      this.selectedCell.correct = false;
+      this.selectedCell.legal = true;
+
+      this.updateSelectionHighlight();
+    },
+    moveSelection: function (arrowKey) { // eslint-disable-line object-shorthand
+      const id = this.selectedCell.id;
+      let x = (Number(id[0]) * 3) + Number(id[2]);
+      let y = (Number(id[1]) * 3) + Number(id[3]);
+
+      if (arrowKey === 'ArrowLeft')
+        x = x - 1 < 0 ? (x - 1 + 9) % 9 : (x - 1) % 9;
+      else if (arrowKey === 'ArrowRight')
+        x = (x + 1) % 9;
+      else if (arrowKey === 'ArrowUp')
+        y = y - 1 < 0 ? (y - 1 + 9) % 9 : (y - 1) % 9;
+      else if (arrowKey === 'ArrowDown')
+        y = (y + 1) % 9;
+
+      if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
+        this.selectedCell.selected = false;
+        this.selectedCell.secondarySelected = false;
+        this.selectedCell = this.cellFromCoordinates(x, y);
+        this.selectedCell.selected = true;
+
+        this.updateSelectionHighlight();
+      }
+    },
+    updateSelectionHighlight: function () { // eslint-disable-line object-shorthand
+      this.clearHighlitCells(this.selectedCell.number);
+
+      this.highlightLine(this.selectedCell);
+      this.highlightSimilarCells(this.selectedCell);
+      this.highlightCrossedCells(this.selectedCell);
+    },
     keyPressed: function (event) { // eslint-disable-line object-shorthand
       if (!this.selectedCell)
         return;
@@ -152,60 +207,18 @@ export default {
 
       if (!this.selectedCell.locked && numbers.includes(key)) {
         const number = Number(key);
-        if (this.selectedCell.secondarySelected) {
-          this.selectedCell.marks[number] = !this.selectedCell.marks[number];
-        } else {
-          if (number === this.selectedCell.number) {
-            this.clearHighlitCells(this.selectedCell.number);
-            this.selectedCell.number = null;
-            this.selectedCell.legal = true;
-            this.selectedCell.correct = false;
-          } else {
-            const id = this.selectedCell.id;
-            let x = (Number(id[0]) * 3) + Number(id[2]);
-            let y = (Number(id[1]) * 3) + Number(id[3]);
-            this.clearHighlitCells(this.selectedCell.number);
-            this.selectedCell.number = number;
-            const result = sudoku.setNumber(x, y, number);
-            this.selectedCell.correct = result.correct;
-            this.selectedCell.legal = result.legal;
-            this.highlightSimilarCells(this.selectedCell);
-            this.highlightCrossedCells(this.selectedCell);
-          }
-        }
+        if (this.selectedCell.secondarySelected)
+          this.toggleHint(number);
+        else if (number === this.selectedCell.number)
+          this.clearNumber();
+        else
+          this.setNumber(number);
       } else if (!this.selectedCell.locked && key === ' ') {
         this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
       } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
-        this.clearHighlitCells(this.selectedCell.number);
-        this.selectedCell.number = null;
-        this.selectedCell.correct = false;
-        this.selectedCell.legal = true;
-        this.highlightSimilarCells(this.selectedCell);
-        this.highlightCrossedCells(this.selectedCell);
+        this.clearNumber();
       } else if (key.substring(0, 5) === 'Arrow') {
-        const id = this.selectedCell.id;
-        let x = (Number(id[0]) * 3) + Number(id[2]);
-        let y = (Number(id[1]) * 3) + Number(id[3]);
-
-        if (key === 'ArrowLeft')
-          x = x - 1 < 0 ? (x - 1 + 9) % 9 : (x - 1) % 9;
-        else if (key === 'ArrowRight')
-          x = (x + 1) % 9;
-        else if (key === 'ArrowUp')
-          y = y - 1 < 0 ? (y - 1 + 9) % 9 : (y - 1) % 9;
-        else if (key === 'ArrowDown')
-          y = (y + 1) % 9;
-
-        if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
-          this.clearHighlitCells(this.selectedCell.number);
-          this.selectedCell.selected = false;
-          this.selectedCell.secondarySelected = false;
-          this.selectedCell = this.cellFromCoordinates(x, y);
-          this.selectedCell.selected = true;
-          this.highlightLine(this.selectedCell);
-          this.highlightSimilarCells(this.selectedCell);
-          this.highlightCrossedCells(this.selectedCell);
-        }
+        this.moveSelection(key);
       }
     },
     clear: function () { // eslint-disable-line object-shorthand
