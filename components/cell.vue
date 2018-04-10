@@ -11,5 +11,3 @@
 
 <script src="./scripts/cell.js"></script>
 <style src="./styles/cell.css"></style>
-<style src="./styles/grid.css"></style>
-<style src="./styles/sudoku-me.css"></style>

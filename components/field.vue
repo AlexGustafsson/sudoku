@@ -16,5 +16,3 @@
 
 <script src="./scripts/field.js"></script>
 <style src="./styles/field.css"></style>
-<style src="./styles/grid.css"></style>
-<style src="./styles/sudoku-me.css"></style>
