@@ -3,7 +3,7 @@
 import Cell from '../cell.vue';
 import Keyboard from '../keyboard.vue';
 
-const DIFFICULTY = 0.5;
+const DIFFICULTY = process.env.NODE_ENV === 'development' ? 0.015 : 0.5;
 
 const Sudoku = require('../../lib/sudoku');
 
