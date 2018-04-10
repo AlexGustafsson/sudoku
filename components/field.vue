@@ -1,5 +1,5 @@
 <template>
-  <div class="field">
+  <div class="field" v-bind:class="{completed}">
     <div class="grid">
       <div class="grid subgrid" v-for="subgrid in subgrids">
         <cell v-for="cell in subgrid" :key="cell.id" v-on:selected="cellSelected"

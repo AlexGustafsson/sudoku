@@ -1,3 +1,5 @@
+/* global alert */
+
 import Field from '../field.vue';
 
 export default {
@@ -7,7 +9,9 @@ export default {
     return {};
   },
   methods: {
-
+    fieldCompleted: function (field) { // eslint-disable-line object-shorthand
+      console.log(field);
+    }
   },
   components: {
     Field

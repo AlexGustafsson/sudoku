@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-    <field></field>
+    <field v-on:completed="fieldCompleted"></field>
 	</div>
 </template>
 

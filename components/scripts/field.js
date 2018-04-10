@@ -59,16 +59,22 @@ export default {
       subgrids[subgrid][cx + (3 * cy)] = cell;
     }
 
+    subgrids[0][0].locked = false;
+
     return {
       subgrids,
       selectedCell: null,
       highlitCells: [],
       lineColumn: 1,
-      lineRow: 1
+      lineRow: 1,
+      completed: false
     };
   },
   methods: {
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
+      // Lock if completed
+      if (this.completed)
+        return;
       // Toggle secondary selection if pressing the selected cell
       if (this.selectedCell && cell.id === this.selectedCell.id) {
         if (!this.selectedCell.locked)
@@ -104,6 +110,11 @@ export default {
         if (selectedNumber)
           highlitCell.highlitMarks[selectedNumber] = false;
       }
+    },
+    clearSelection: function () { // eslint-disable-line object-shorthand
+      this.selectedCell.selected = false;
+      this.clearHighlitCells(this.selectedCell.number);
+      this.selectedCell = null;
     },
     highlightSimilarCells: function (cell) { // eslint-disable-line object-shorthand
       if (cell.number === null)
@@ -157,6 +168,12 @@ export default {
       this.selectedCell.legal = result.legal;
 
       this.updateSelectionHighlight();
+
+      if (sudoku.isComplete()) {
+        this.$emit('completed', this);
+        this.completed = true;
+        this.clearSelection();
+      }
     },
     toggleHint: function (number) { // eslint-disable-line object-shorthand
       this.selectedCell.marks[number] = !this.selectedCell.marks[number];
@@ -169,6 +186,10 @@ export default {
       this.updateSelectionHighlight();
     },
     moveSelection: function (arrowKey) { // eslint-disable-line object-shorthand
+      // Lock if completed
+      if (this.completed)
+        return;
+
       const id = this.selectedCell.id;
       let x = (Number(id[0]) * 3) + Number(id[2]);
       let y = (Number(id[1]) * 3) + Number(id[3]);
@@ -199,6 +220,10 @@ export default {
       this.highlightCrossedCells(this.selectedCell);
     },
     keyPressed: function (event) { // eslint-disable-line object-shorthand
+      // Lock if completed
+      if (this.completed)
+        return;
+
       if (!this.selectedCell)
         return;
 

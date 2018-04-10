@@ -18,6 +18,13 @@
   z-index: -1;
 }
 
+/* A completed field's cells */
+.completed > .grid > .grid > .cell {
+  transform-origin: center;
+  animation: completedAnimation 1.5s;
+  cursor: default;
+}
+
 /* A hinted number cell*/
 .hint {
 
