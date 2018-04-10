@@ -1,15 +1,45 @@
-h1 {
-  color: blue;
-}
-
 .field {
-  margin: 0 auto;
+  position: absolute!important;
+  top: 50%;
+  left: 50%;
   max-width: min(90vw, 90vh);
   max-height: min(90vw, 90vh);
   min-width: 320px;
   min-height: 320px;
+  transform: translate(-50%, -50%);
+}
+
+.app {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.menu > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.menu > div > .button {
+  cursor: pointer;
 }
 
 * {
-  -webkit-tap-highlight-color:rgba(0,0,0,0)
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  user-select: none;
+  cursor: default;
+}
+
+a {
+  cursor: pointer;
 }

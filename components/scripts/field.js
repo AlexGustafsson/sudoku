@@ -3,10 +3,12 @@
 import Cell from '../cell.vue';
 import Keyboard from '../keyboard.vue';
 
+const DIFFICULTY = 0.5;
+
 const Sudoku = require('../../lib/sudoku');
 
-const sudoku = new Sudoku();
-sudoku.generate(0);
+let sudoku = new Sudoku();
+sudoku.generate(DIFFICULTY);
 
 export default {
   name: 'field',
@@ -59,8 +61,6 @@ export default {
       subgrids[subgrid][cx + (3 * cy)] = cell;
     }
 
-    subgrids[0][0].locked = false;
-
     return {
       subgrids,
       selectedCell: null,
@@ -71,6 +71,41 @@ export default {
     };
   },
   methods: {
+    reset: function (difficulty = DIFFICULTY) { // eslint-disable-line object-shorthand
+      sudoku.generate(difficulty);
+      for (const subgrid of this.subgrids) {
+        for (const cell of subgrid) {
+          const x = (Number(cell.id[0]) * 3) + Number(cell.id[2]);
+          const y = (Number(cell.id[1]) * 3) + Number(cell.id[3]);
+          const sx = Math.floor(x / 3);
+          const sy = Math.floor(y / 3);
+          const cx = x % 3;
+          const cy = y % 3;
+          const {
+            number,
+            correct
+          } = sudoku.getCell(cx + (sx * 3), cy + (sy * 3));
+
+          for (let i = 1; i <= 9; i++)
+            cell.highlitMarks[i] = false;
+
+          for (let i = 1; i <= 9; i++)
+            cell.marks[i] = false;
+
+          cell.number = number;
+          cell.correct = correct;
+          cell.locked = correct;
+          cell.legal = true;
+          cell.selected = false;
+          cell.secondarySelected = false;
+          cell.crossed = false;
+          cell.hasHighlitMark = false;
+        }
+      }
+
+      this.completed = false;
+      this.selectedCell = null;
+    },
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
       // Lock if completed
       if (this.completed)
@@ -170,9 +205,9 @@ export default {
       this.updateSelectionHighlight();
 
       if (sudoku.isComplete()) {
-        this.$emit('completed', this);
         this.completed = true;
         this.clearSelection();
+        this.$emit('completed', this);
       }
     },
     toggleHint: function (number) { // eslint-disable-line object-shorthand

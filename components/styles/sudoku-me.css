@@ -149,3 +149,96 @@ div:nth-of-type(9).subgrid {
     font-size: 18px;
   }
 }
+
+.button {
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
+  text-align:center;
+  vertical-align: middle;
+  background-color: #62ECD2;
+  text-transform: uppercase;
+  color: white;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 10px #62ECD2
+}
+
+.menu {
+  backdrop-filter: blur(3px);
+}
+
+.menu.hide {
+  opacity:1;
+  animation: hideMenu 1s forwards;
+}
+
+.menu.hide > div {
+  animation: hideMenuContent 0.5s forwards;
+}
+
+@keyframes hideMenu {
+  0% {
+    backdrop-filter: blur(3px);
+  }
+  100% {
+    backdrop-filter: blur(0px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes hideMenuContent {
+  100% {
+    transform: translate3d(-50%, -50%, 0) scale3d(1.5, 1.5, 1);
+    opacity: 0;
+  }
+}
+
+.menuToggle, .menuToggle::before, .menuToggle::after {
+  width: 24px;
+  height: 2px;
+  background-color: black;
+  position: absolute;
+  content: "";
+  display: block;
+}
+
+.menuToggle {
+  right: 15px;
+  top: 5px;
+}
+
+.menuToggle::before {
+  bottom: 5px;
+}
+
+.menuToggle::after {
+  top: 5px;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  color: #FD00AE;
+}
+
+.github {
+  margin: 0 auto;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+
+.github img {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}

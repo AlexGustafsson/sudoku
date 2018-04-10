@@ -1,5 +1,20 @@
 <template>
 	<div id="app">
+		<div class="menu" v-bind:class="{hide: !menuVisible}">
+			<p class="menuToggle"></p>
+			<div>
+				<h1>Sudoku</h1>
+					<div class="github">
+						<a target="_blank" href="https://github.com/AlexGustafsson/sudoku">
+							<img src="/GitHub-Mark-64px.png" />
+						</a>
+					</div>
+				<br />
+				<br />
+				<h2 v-if="completed">You did it!</h2>
+				<p class="button" v-on:click="play">Play</p>
+			</div>
+		</div>
     <field v-on:completed="fieldCompleted"></field>
 	</div>
 </template>
