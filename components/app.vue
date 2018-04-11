@@ -11,11 +11,12 @@
 					</div>
 				<br />
 				<br />
-				<h2 v-bind:class="{hide: !completed}">You did it!</h2>
-				<p v-if="!completed && firstTime" class="button" v-on:click="play">Play</p>
-				<p v-else-if="completed" class="button" v-on:click="play">Play again</p>
+				<h2 v-bind:class="{hide: !endState}">You did it!</h2>
+				<p v-if="!endState && firstTime" class="button" v-on:click="play">Play</p>
+				<p v-else-if="endState" class="button" v-on:click="play">Play again</p>
 				<p v-else-if="!firstTime" class="button" v-on:click="play">Resume</p>
-				<p v-if="!completed && !firstTime" class="button" v-on:click="restart">Restart</p>
+				<p v-if="!endState && !firstTime" class="button" v-on:click="restart">Restart</p>
+				<p v-on:click="cycleDifficulty" class="button">{{level}}</p>
 			</div>
 		</div>
 		<div class="game">

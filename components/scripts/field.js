@@ -2,11 +2,11 @@
 
 import Cell from '../cell.vue';
 
-const DIFFICULTY = process.env.NODE_ENV === 'development' ? 0.1 : 0.5;
+const DIFFICULTY = 0.35;
 
 const Sudoku = require('../../lib/sudoku');
 
-let sudoku = new Sudoku();
+const sudoku = new Sudoku();
 sudoku.generate(DIFFICULTY);
 
 export default {
