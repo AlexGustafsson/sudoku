@@ -105,6 +105,7 @@ export default {
 
       this.completed = false;
       this.selectedCell = null;
+      this.clearHighlitCells();
     },
     cellSelected: function (cell) { // eslint-disable-line object-shorthand
       // Lock if completed
