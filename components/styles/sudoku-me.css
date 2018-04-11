@@ -197,25 +197,30 @@ div:nth-of-type(9).subgrid {
   }
 }
 
-.menuToggle, .menuToggle::before, .menuToggle::after {
+.menuToggle {
+  position: absolute;
+  cursor: pointer;
+  right: 15px;
+  top: 5px;
+  width: 24px;
+  height: 24px;
+}
+
+.menuToggle > p, .menuToggle > p::before, .menuToggle > p::after {
   width: 24px;
   height: 2px;
   background-color: black;
   position: absolute;
   content: "";
   display: block;
+  cursor: pointer;
 }
 
-.menuToggle {
-  right: 15px;
-  top: 5px;
-}
-
-.menuToggle::before {
+.menuToggle > p::before {
   bottom: 5px;
 }
 
-.menuToggle::after {
+.menuToggle  > p::after {
   top: 5px;
 }
 

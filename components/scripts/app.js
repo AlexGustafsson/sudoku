@@ -8,7 +8,8 @@ export default {
   data: function () { // eslint-disable-line object-shorthand
     return {
       menuVisible: true,
-      completed: false
+      completed: false,
+      firstTime: true
     };
   },
   methods: {
@@ -21,6 +22,14 @@ export default {
       if (this.completed)
         this.$children[0].reset();
       this.completed = false;
+      this.firstTime = false;
+    },
+    openMenu: function () { // eslint-disable-line object-shorthand
+      this.menuVisible = true;
+    },
+    restart: function () { // eslint-disable-line object-shorthand
+      this.menuVisible = false;
+      this.$children[0].reset();
     }
   },
   components: {

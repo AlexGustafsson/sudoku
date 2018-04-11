@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
+		<div v-on:click="openMenu" class="menuToggle"><p></p></div>
 		<div class="menu" v-bind:class="{hide: !menuVisible}">
-			<p class="menuToggle"></p>
 			<div>
 				<h1>Sudoku</h1>
 					<div class="github">
@@ -11,8 +11,11 @@
 					</div>
 				<br />
 				<br />
-				<h2 v-if="completed">You did it!</h2>
-				<p class="button" v-on:click="play">Play</p>
+				<h2 v-bind:class="{hide: !completed}">You did it!</h2>
+				<p v-if="!completed && firstTime" class="button" v-on:click="play">Play</p>
+				<p v-else-if="completed" class="button" v-on:click="play">Play again</p>
+				<p v-else-if="!firstTime" class="button" v-on:click="play">Resume</p>
+				<p v-if="!completed && !firstTime" class="button" v-on:click="restart">Restart</p>
 			</div>
 		</div>
     <field v-on:completed="fieldCompleted"></field>
