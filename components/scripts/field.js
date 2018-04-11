@@ -152,21 +152,27 @@ export default {
       this.selectedCell = null;
     },
     highlightSimilarCells: function (cell) { // eslint-disable-line object-shorthand
-      if (cell.number === null)
-        return;
+      const numbers = [];
 
-      for (const similarCell of this.cellsFromNumber(cell.number)) {
-        if (similarCell.id !== cell.id) {
-          similarCell.highlit = true;
-          this.highlitCells.push(similarCell);
+      if (cell.number)
+        numbers.push(cell.number);
+      else
+        numbers.push(...[1, 2, 3, 4, 5, 6, 7, 8, 9].filter(x => cell.marks[x]));
+
+      for (const number of numbers) {
+        for (const similarCell of this.cellsFromNumber(number)) {
+          if (similarCell.id !== cell.id) {
+            similarCell.highlit = true;
+            this.highlitCells.push(similarCell);
+          }
         }
-      }
 
-      for (const similarCell of this.cellsFromMarks(cell.number)) {
-        if (similarCell.id !== cell.id) {
-          similarCell.highlitMarks[cell.number] = true;
-          similarCell.hasHighlitMark = true;
-          this.highlitCells.push(similarCell);
+        for (const similarCell of this.cellsFromMarks(number)) {
+          if (similarCell.id !== cell.id) {
+            similarCell.highlitMarks[cell.number] = true;
+            similarCell.hasHighlitMark = true;
+            this.highlitCells.push(similarCell);
+          }
         }
       }
     },
@@ -212,6 +218,7 @@ export default {
     },
     toggleHint: function (number) { // eslint-disable-line object-shorthand
       this.selectedCell.marks[number] = !this.selectedCell.marks[number];
+      this.updateSelectionHighlight();
     },
     clearNumber: function () { // eslint-disable-line object-shorthand
       this.selectedCell.number = null;
