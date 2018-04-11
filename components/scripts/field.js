@@ -3,7 +3,7 @@
 import Cell from '../cell.vue';
 import Keyboard from '../keyboard.vue';
 
-const DIFFICULTY = process.env.NODE_ENV === 'development' ? 0.015 : 0.5;
+const DIFFICULTY = process.env.NODE_ENV === 'development' ? 0.1 : 0.5;
 
 const Sudoku = require('../../lib/sudoku');
 
@@ -261,31 +261,61 @@ export default {
       this.highlightSimilarCells(this.selectedCell);
       this.highlightCrossedCells(this.selectedCell);
     },
+    getHint: function () { // eslint-disable-line object-shorthand
+      if (this.selectedCell.locked)
+        return;
+
+      const id = this.selectedCell.id;
+      const x = (Number(id[0]) * 3) + Number(id[2]);
+      const y = (Number(id[1]) * 3) + Number(id[3]);
+      this.setNumber(sudoku.getCorrectNumber(x, y));
+    },
+    getRandomHint: function () { // eslint-disable-line object-shorthand
+      const {
+        x,
+        y,
+        number
+      } = sudoku.getRandomHint();
+
+      if (this.selectedCell) {
+        this.selectedCell.selected = false;
+        this.selectedCell.secondarySelected = false;
+      }
+      this.selectedCell = this.cellFromCoordinates(x, y);
+      this.selectedCell.selected = true;
+
+      this.setNumber(number);
+    },
     keyPressed: function (event) { // eslint-disable-line object-shorthand
       // Lock if completed
       if (this.completed)
         return;
 
-      if (!this.selectedCell)
-        return;
-
       const key = event.key;
       const numbers = '123456789';
 
-      if (!this.selectedCell.locked && numbers.includes(key)) {
-        const number = Number(key);
-        if (this.selectedCell.secondarySelected)
-          this.toggleHint(number);
-        else if (number === this.selectedCell.number)
+      if (this.selectedCell) {
+        if (!this.selectedCell.locked && numbers.includes(key)) {
+          const number = Number(key);
+          if (this.selectedCell.secondarySelected)
+            this.toggleHint(number);
+          else if (number === this.selectedCell.number)
+            this.clearNumber();
+          else
+            this.setNumber(number);
+        } else if (!this.selectedCell.locked && key === ' ') {
+          this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
+        } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
           this.clearNumber();
-        else
-          this.setNumber(number);
-      } else if (!this.selectedCell.locked && key === ' ') {
-        this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
-      } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
-        this.clearNumber();
-      } else if (key.substring(0, 5) === 'Arrow') {
-        this.moveSelection(key);
+        } else if (key.substring(0, 5) === 'Arrow') {
+          this.moveSelection(key);
+        } else if (key === 'g') {
+          this.getHint();
+        } else if (key === 'h') {
+          this.getRandomHint();
+        }
+      } else if (key === 'h') {
+        this.getRandomHint();
       }
     },
     clear: function () { // eslint-disable-line object-shorthand
