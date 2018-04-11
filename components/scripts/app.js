@@ -1,6 +1,5 @@
-/* global alert */
-
 import Field from '../field.vue';
+import Keyboard from '../keyboard.vue';
 
 export default {
   name: 'app',
@@ -13,7 +12,7 @@ export default {
     };
   },
   methods: {
-    fieldCompleted: function (field) { // eslint-disable-line object-shorthand
+    fieldCompleted: function () { // eslint-disable-line object-shorthand
       this.completed = true;
       this.menuVisible = true;
     },
@@ -33,6 +32,7 @@ export default {
     }
   },
   components: {
-    Field
+    Field,
+    Keyboard
   }
 };

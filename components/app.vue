@@ -18,7 +18,10 @@
 				<p v-if="!completed && !firstTime" class="button" v-on:click="restart">Restart</p>
 			</div>
 		</div>
-    <field v-on:completed="fieldCompleted"></field>
+		<div class="game">
+	    <field v-on:completed="fieldCompleted"></field>
+	    <keyboard></keyboard>
+		</div>
 	</div>
 </template>
 

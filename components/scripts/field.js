@@ -1,7 +1,6 @@
 /* global document */
 
 import Cell from '../cell.vue';
-import Keyboard from '../keyboard.vue';
 
 const DIFFICULTY = process.env.NODE_ENV === 'development' ? 0.1 : 0.5;
 
@@ -374,7 +373,6 @@ export default {
     document.removeEventListener('keydown', this.keyPressed);
   },
   components: {
-    Cell,
-    Keyboard
+    Cell
   }
 };

@@ -10,7 +10,6 @@
       <div v-bind:class="{hide: !selectedCell}" class="horizontal overlay" v-bind:style="lineColumn"></div>
       <div v-bind:class="{hide: !selectedCell}" class="vertical overlay" v-bind:style="lineRow"></div>
     </div>
-    <keyboard></keyboard>
   </div>
 </template>
 
