@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "xo",
-    "build": "poi build",
-    "start": "poi"
+    "build": "poi --production",
+    "start": "poi --serve"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^0.25.0",
-    "poi": "^9.6.13",
-    "xo": "^0.20.3"
+    "ava": "^2.4.0",
+    "poi": "^12.7.3",
+    "xo": "^0.25.3"
   },
   "dependencies": {
-    "vue": "^2.5.16"
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "xo": {
     "space": 2,
