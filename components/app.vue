@@ -6,7 +6,7 @@
 				<h1>Sudoku</h1>
 					<div class="github">
 						<a target="_blank" href="https://github.com/AlexGustafsson/sudoku">
-							<img src="/GitHub-Mark-64px.png" />
+							<img src="/assets/github.png" />
 						</a>
 					</div>
 				<br />

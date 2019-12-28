@@ -1,18 +1,24 @@
 {
   "name": "sudoku",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Sudoku platform for help and solutions",
   "main": "index.js",
   "scripts": {
-    "test": "xo",
+    "lint": "xo",
+    "stylelint": "stylelint components/styles/*.css",
+    "dev": "poi --serve",
+    "check-duplicate-code": "jsinspect -t 20 lib components/scripts",
     "build": "poi --production",
-    "start": "poi --serve"
+    "start": "node ./server.js"
   },
-  "author": "",
+  "author": "Alex Gustafsson",
   "license": "ISC",
   "devDependencies": {
-    "ava": "^2.4.0",
+    "autoprefixer": "^9.7.3",
+    "jsinspect": "^0.12.7",
     "poi": "^12.7.3",
+    "stylelint": "^12.0.0",
+    "stylelint-config-standard": "^19.0.0",
     "xo": "^0.25.3"
   },
   "dependencies": {
@@ -22,7 +28,9 @@
   "xo": {
     "space": 2,
     "esnext": true,
-    "ignores": "**/*.vue",
+    "ignores": [
+      "**/*.vue"
+    ],
     "rules": {
       "curly": [
         "error",
@@ -60,7 +68,38 @@
             "**/*.css"
           ]
         }
+      ],
+      "padding-line-between-statements": [
+        "off"
       ]
+    }
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "concurrency": 5,
+    "failFast": false,
+    "verbose": true,
+    "compileEnhancements": false
+  },
+  "poi": {
+    "entry": "index.js",
+    "publicFolder": "static",
+    "output": {
+      "html": {
+        "template": "index.html"
+      }
+    }
+  },
+  "browserslist": "cover 90% in SV and > 0.5% and last 2 versions and not op_mini all and not Opera > 0",
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "color-hex-case": "upper",
+      "declaration-empty-line-before": null,
+      "comment-empty-line-before": null,
+      "declaration-bang-space-before": null
     }
   }
 }

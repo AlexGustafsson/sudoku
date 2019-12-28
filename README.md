@@ -1,6 +1,6 @@
 Sudoku
 ======
-A sudoku implementation using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue. [Check it out live](https://dist-dxhvxidzdn.now.sh).
+A sudoku implementation using modern techniques such as modern EcmaScript, Poi (Webpack, Babel etc.) and Vue. [Check it out live](https://sudoku.axgn.se).
 
 <p align="center">
   <img alt="Demo" src="https://github.com/AlexGustafsson/sudoku/raw/master/assets/demo.gif">
@@ -16,11 +16,21 @@ git clone https://github.com/AlexGustafsson/sudoku
 # Enter the directory
 cd sudoku
 
-# Install dependencies and launch development server
+## Option A:
+# Install dependencies
 npm install
-npm start
+# Option A 1: Run development server
+npm run dev
+# Option A 2: Build and run minimal server
+npm run build
+npm run start
 
-# You can now go to http://localhost:4000
+## Option B:
+# Build and run using Docker
+./docker-build.sh
+docker run -it -p 3000:3000 axgn/sudoku
+
+# You can now go to http://localhost:3000 or http://localhost:4000 if you're using the development server
 ```
 
 # Table of contents
@@ -29,6 +39,7 @@ npm start
 [Features](#features)<br />
 [Algorithms](#algorithms)<br />
 [Technology](#technology)<br />
+[Development](#development)<br />
 [Disclaimer](#disclaimer)
 
 # Features
@@ -75,6 +86,29 @@ Visit Poi [here](https://github.com/egoist/poi).
 > Vue (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. It is designed from the ground up to be incrementally adoptable, and can easily scale between a library and a framework depending on different use cases. It consists of an approachable core library that focuses on the view layer only, and an ecosystem of supporting libraries that helps you tackle complexity in large Single-Page Applications.
 
 Visit Vue [here](https://github.com/vuejs/vue).
+
+# Development
+<a name="development"></a>
+
+```
+# Clone the repository
+git clone https://github.com/AlexGustafsson/sudoku
+
+# Enter the directory
+cd timekeep
+
+# Install dependencies
+npm install
+
+# Follow the conventions enforced
+npm run lint
+npm run stylelint
+npm run coverage
+npm run check-duplicate-code
+
+# Build for production
+npm run build
+```
 
 # Disclaimer
 <a name="disclaimer"></a>
