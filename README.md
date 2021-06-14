@@ -28,7 +28,7 @@ npm run start
 ## Option B:
 # Build and run using Docker
 ./docker-build.sh
-docker run -it -p 3000:3000 axgn/sudoku
+docker run -it -p 3000:80 axgn/sudoku
 
 # You can now go to http://localhost:3000 or http://localhost:4000 if you're using the development server
 ```
