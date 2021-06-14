@@ -40,6 +40,6 @@
   cursor: default;
 }
 
-a {
+a, svg {
   cursor: pointer;
 }

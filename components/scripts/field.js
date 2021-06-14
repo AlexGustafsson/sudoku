@@ -1,20 +1,19 @@
 /* global document */
 
 import Cell from '../cell.vue';
+import Sudoku from '../../lib/sudoku.js';
 
 const DIFFICULTY = 0.35;
-
-const Sudoku = require('../../lib/sudoku');
 
 const sudoku = new Sudoku();
 sudoku.generate(DIFFICULTY);
 
-export default {
+const Field = {
   name: 'field',
   // Vue expects to inject 'this' for instatiation, arrow functions would break that
   data: function () { // eslint-disable-line object-shorthand
-    const subgrids = new Array(9).fill(null).map(() => {
-      return new Array(9).fill(null);
+    const subgrids = Array.from({length: 9}).fill(null).map(() => {
+      return Array.from({length: 9}).fill(null);
     });
 
     for (let index = 0; index < 81; index++) {
@@ -236,14 +235,22 @@ export default {
       let x = (Number(id[0]) * 3) + Number(id[2]);
       let y = (Number(id[1]) * 3) + Number(id[3]);
 
-      if (arrowKey === 'ArrowLeft')
-        x = x - 1 < 0 ? (x - 1 + 9) % 9 : (x - 1) % 9;
-      else if (arrowKey === 'ArrowRight')
-        x = (x + 1) % 9;
-      else if (arrowKey === 'ArrowUp')
-        y = y - 1 < 0 ? (y - 1 + 9) % 9 : (y - 1) % 9;
-      else if (arrowKey === 'ArrowDown')
-        y = (y + 1) % 9;
+      switch (arrowKey) {
+        case 'ArrowLeft':
+          x = x - 1 < 0 ? (x - 1 + 9) % 9 : (x - 1) % 9;
+          break;
+        case 'ArrowRight':
+          x = (x + 1) % 9;
+          break;
+        case 'ArrowUp':
+          y = y - 1 < 0 ? (y - 1 + 9) % 9 : (y - 1) % 9;
+          break;
+        case 'ArrowDown':
+          y = (y + 1) % 9;
+          break;
+        default:
+          break;
+      }
 
       if (x !== this.selectedCell.x || y !== this.selectedCell.y) {
         this.selectedCell.selected = false;
@@ -307,7 +314,7 @@ export default {
           this.selectedCell.secondarySelected = !this.selectedCell.secondarySelected;
         } else if (!this.selectedCell.locked && !this.selectedCell.secondarySelected && (key === 'Backspace' || key === 'Delete')) {
           this.clearNumber();
-        } else if (key.substring(0, 5) === 'Arrow') {
+        } else if (key.startsWith('Arrow')) {
           this.moveSelection(key);
         } else if (key === 'g') {
           this.getHint();
@@ -376,3 +383,4 @@ export default {
     Cell
   }
 };
+export default Field;

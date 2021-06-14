@@ -1,10 +1,8 @@
-export default {
+const Cell = {
   name: 'cell',
   // Vue expects to inject 'this' for instatiation, arrow functions would break that
   data: function () { // eslint-disable-line object-shorthand
-    return {
-
-    };
+    return {};
   },
   props: {
     number: {
@@ -68,8 +66,6 @@ export default {
     clicked: function () { // eslint-disable-line object-shorthand
       this.$emit('selected', this);
     }
-  },
-  components: {
-
   }
 };
+export default Cell;

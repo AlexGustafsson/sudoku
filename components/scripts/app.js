@@ -11,7 +11,7 @@ const difficultyLevels = [
   {level: 'impossible', difficulty: 0.9}
 ];
 
-export default {
+const App = {
   name: 'app',
   // Vue expects to inject 'this' for instatiation, arrow functions would break that
   data: function () { // eslint-disable-line object-shorthand
@@ -36,7 +36,7 @@ export default {
     play: function () { // eslint-disable-line object-shorthand
       this.menuVisible = !this.menuVisible;
       if (this.completed)
-        this.$children[0].reset(this.difficulty);
+        this.$refs.field.reset(this.difficulty);
       this.completed = false;
       this.firstTime = false;
       this.endState = false;
@@ -46,7 +46,7 @@ export default {
     },
     restart: function () { // eslint-disable-line object-shorthand
       this.menuVisible = false;
-      this.$children[0].reset(this.difficulty);
+      this.$refs.field.reset(this.difficulty);
       this.completed = false;
       this.generatedDifficulty = this.difficulty;
       this.endState = false;
@@ -57,7 +57,7 @@ export default {
       this.level = difficultyLevels[level].level;
       if ((this.firstTime || this.endState) && this.difficulty !== this.generatedDifficulty) {
         this.generatedDifficulty = this.difficulty;
-        this.$children[0].reset(this.difficulty);
+        this.$refs.field.reset(this.difficulty);
         this.completed = false;
       }
     }
@@ -67,3 +67,4 @@ export default {
     Keyboard
   }
 };
+export default App;
