@@ -11,7 +11,7 @@
     "build": "vite build"
   },
   "author": "Alex Gustafsson",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
     "autoprefixer": "^10.2.6",
